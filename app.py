@@ -1,6 +1,7 @@
 #import flask 
 from flask import Flask, render_template, request, send_file
 from flask_uploads import UploadSet, configure_uploads, UploadNotAllowed
+import backgeocoder
 
 #web app object
 app=Flask(__name__)
@@ -23,6 +24,7 @@ def upload():
             fileuploaded.save(file) #save file as per saved config parameters above
         except UploadNotAllowed:
             return render_template("index.html", message="Please upload a valid .csv file")
+        filename=file            
         return render_template("index.html", message="Upload successful")
 
 @app.route ("/template_down")
