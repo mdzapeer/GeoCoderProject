@@ -6,7 +6,6 @@
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../static/main.css" />
-    <script src="main.js"></script>
 </head>
 <body>
     <div class=container>
@@ -16,6 +15,7 @@
             <input type="file" name="file">
             <button type="submit">Upload</button>
         </form>
+        <a href="{{url_for('template_down')}}">Download template</a>
         <p1 id=message>{{message | safe}}</p1>                
     </div>
     

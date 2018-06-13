@@ -1,7 +1,6 @@
 #import flask 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from flask_uploads import UploadSet, configure_uploads, UploadNotAllowed
-from werkzeug import secure_filename
 
 #web app object
 app=Flask(__name__)
@@ -11,8 +10,6 @@ app.config['UPLOADED_FILECSV_DEST']="uploaded"
 fileuploaded=UploadSet('filecsv', ('csv',))
 #apply configure_uploads method on flask app object and fileuploaded object to save the changes
 configure_uploads(app,(fileuploaded,))
-
-
 
 @app.route("/")
 def index():
@@ -27,11 +24,10 @@ def upload():
         except UploadNotAllowed:
             return render_template("index.html", message="Please upload a valid .csv file")
         return render_template("index.html", message="Upload successful")
-    
 
-# @app.route ("/temp_down")
-# def template_down():
-#     return render_template("index.html")
+@app.route ("/template_down")
+def template_down():
+    return send_file("samples\sample template.csv", as_attachment=True)
 
 # @app.route("/download")
 # def download():
