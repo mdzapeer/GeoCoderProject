@@ -1,7 +1,7 @@
 #import flask 
 from flask import Flask, render_template, request, send_file
 from flask_uploads import UploadSet, configure_uploads, UploadNotAllowed
-import backgeocoder
+from backgeocoder import geocoder
 
 #web app object
 app=Flask(__name__)
@@ -17,15 +17,15 @@ def index():
     return render_template("index.html")
 
 @app.route("/upload", methods=['POST'])
-def upload():
+def upload():    
     if request.method=='POST':
         file=request.files["file"] #get the file from HTML page
         try:
-            fileuploaded.save(file) #save file as per saved config parameters above
+            filename=fileuploaded.save(file) #save file as per saved config parameters above
+            coded=geocoder(filename)
         except UploadNotAllowed:
-            return render_template("index.html", message="Please upload a valid .csv file")
-        filename=file            
-        return render_template("index.html", message="Upload successful")
+            return render_template("index.html", message="Please upload a valid .csv file")                        
+        return render_template("index.html", message="Upload successful", data=coded.to_html())
 
 @app.route ("/template_down")
 def template_down():
@@ -39,5 +39,4 @@ def template_down():
 if __name__ == '__main__':
     app.debug=True
     app.run()
-
 

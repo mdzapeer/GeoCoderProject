@@ -6,13 +6,15 @@ html, body {
 }
 
 .container {
-    margin: 0;
+    margin: auto;
     margin-top: 5%;
+    margin-left: auto;
     width: 100%;
     height: 100%;
     color: darkblue;
     overflow: hidden;
     text-align: center;
+    align-items: center;
 }
 
 .container button{
