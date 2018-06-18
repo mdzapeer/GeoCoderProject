@@ -22,17 +22,19 @@ def upload():
         file=request.files["file"] #get the file from HTML page
         try:
             filename=fileuploaded.save(file) #save file as per saved config parameters above
-            coded=geocoder(filename)
-            coded.to_csv("coded\yourCSV.csv")
+            coded=geocoder(filename) #call geocoder
+            coded.to_csv("coded\yourCSV.csv") #future upgrade add datetimefor unique identifier or maybe use global coded?
         except UploadNotAllowed:
-            return render_template("index.html", message="Please upload a valid .csv file")                        
+            return render_template("index.html", message="Please upload a valid .csv file")
+        except:
+            return render_template("index.html", message="Please upload a csv with an Address column")                     
         return render_template("index.html", message="Upload successful", data=coded.to_html(), btn="download.html")
     else:
         return render_template("index.html", message="No file selected")  
 
 @app.route ("/template_down")
 def template_down():
-    return send_file("samples\sample template.csv", as_attachment=True)
+    return send_file("samples\sample template.csv", as_attachment=True) #send the file to user, maybe use coded global var?
 
 @app.route("/download")
 def download():
