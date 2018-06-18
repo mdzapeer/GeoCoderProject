@@ -11,8 +11,8 @@
     <div class=container>
         <h1>Geocoder</h1>
         <p1>Please submit csv file using provided sample</p1><br>
-        <form action="{{url_for('upload')}}" method="POST" enctype="multipart/form-data">
-            <input type="file" name="file">
+        <form action="{{url_for('upload')}}" method="POST" enctype="multipart/form-data" required>
+            <input type="file" name="file" required>
             <button type="submit">Upload</button>
         </form>        
         <p1 id=message>{{message | safe}}</p1>        
@@ -21,6 +21,7 @@
         <div class="table" align="center">
             {{data | safe}}
         </div>
+        {% include btn ignore missing %}
     </div>
     
 </body>

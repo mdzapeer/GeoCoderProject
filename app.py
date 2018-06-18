@@ -23,17 +23,20 @@ def upload():
         try:
             filename=fileuploaded.save(file) #save file as per saved config parameters above
             coded=geocoder(filename)
+            coded.to_csv("coded\yourCSV.csv")
         except UploadNotAllowed:
             return render_template("index.html", message="Please upload a valid .csv file")                        
-        return render_template("index.html", message="Upload successful", data=coded.to_html())
+        return render_template("index.html", message="Upload successful", data=coded.to_html(), btn="download.html")
+    else:
+        return render_template("index.html", message="No file selected")  
 
 @app.route ("/template_down")
 def template_down():
     return send_file("samples\sample template.csv", as_attachment=True)
 
-# @app.route("/download")
-# def download():
-#     return render_template("index.html")
+@app.route("/download")
+def download():
+    return send_file("coded\yourCSV.csv", as_attachment=True)
 
 
 if __name__ == '__main__':
